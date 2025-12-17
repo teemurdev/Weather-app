@@ -22,17 +22,17 @@ ApplicationWindow {
         function onCurrentDataReady(payload) {
             // Update info
             // First row
-            placeText.text = payload.Place + "\n" +
+            currentFirst.leftText = payload.Place + "\n" +
                              Qt.formatDateTime(new Date(), "dd MMM")
-            temperatureText.text = payload.Temperature + " °C"
-            weatherSymbolText.text = payload.WeatherSymbol
+            currentFirst.centerText = payload.WeatherSymbol
+            currentFirst.rightText = payload.Temperature + " °C"
 
             // Second row
-            windText.text = payload.WindDirection + " °\n" +
+            currentSecond.leftText = payload.WindDirection + " °\n" +
                             payload.WindSpeed + " m/s\n" +
                             "(" + payload.WindGust + " m/s)"
-            cloudsText.text = payload.TotalCloudCover + " %"
-            humidityText.text = payload.Humidity + " %"
+            currentSecond.centerText = payload.TotalCloudCover + " %"
+            currentSecond.rightText = payload.Humidity + " %"
 
             // Third row
             in3hours.text = "In 3 h:\n" +
@@ -110,138 +110,16 @@ ApplicationWindow {
         anchors.right: parent.horizontalCenter
         anchors.bottom: parent.bottom
 
-        Item {
-            id: leftPartFirst
-            width: parent.width
-            height: parent.height / 3
-
-            Text {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: "Current Weather"
-                font.pixelSize: 18
-                padding: parent.height * 0.1
-            }
-
-            Rectangle {
-                anchors.bottom: parent.bottom
-                anchors.left: parent.left
-                width: parent.width * .3
-                height: parent.height * .7
-                color: "grey"
-
-                Text {
-                    id: placeText
-                    anchors.centerIn: parent
-                    width: parent.width
-                    height: parent.height
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    font.pixelSize: 16
-                }
-            }
-
-            Rectangle {
-                anchors.bottom: parent.bottom
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width * .3
-                height: parent.height * .7
-                color: "grey"
-
-                Text {
-                    id: weatherSymbolText
-                    anchors.centerIn: parent
-                    width: parent.width
-                    height: parent.height
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    font.pixelSize: 16
-                }
-            }
-
-            Rectangle {
-                anchors.bottom: parent.bottom
-                anchors.right: parent.right
-                width: parent.width * .3
-                height: parent.height * .7
-                color: "grey"
-
-                Text {
-                    id: temperatureText
-                    anchors.centerIn: parent
-                    width: parent.width
-                    height: parent.height
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    font.pixelSize: 16
-                }
-            }
+        CurrentView {
+            id: currentFirst
+            // @disable-check M16
+            title: "Current Weather"
         }
 
-        Item {
-            id: leftPartSecond
-            width: parent.width
-            height: parent.height / 3
-
-            Text {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: "Air Conditions"
-                font.pixelSize: 18
-                padding: parent.height * 0.1
-            }
-
-            Rectangle {
-                anchors.bottom: parent.bottom
-                anchors.left: parent.left
-                width: parent.width * .3
-                height: parent.height * .7
-                color: "grey"
-
-                Text {
-                    id: windText
-                    anchors.centerIn: parent
-                    width: parent.width
-                    height: parent.height
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    font.pixelSize: 16
-                }
-            }
-
-            Rectangle {
-                anchors.bottom: parent.bottom
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width * .3
-                height: parent.height * .7
-                color: "grey"
-
-                Text {
-                    id: cloudsText
-                    anchors.centerIn: parent
-                    width: parent.width
-                    height: parent.height
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    font.pixelSize: 16
-                }
-            }
-
-            Rectangle {
-                anchors.bottom: parent.bottom
-                anchors.right: parent.right
-                width: parent.width * .3
-                height: parent.height * .7
-                color: "grey"
-
-                Text {
-                    id: humidityText
-                    anchors.centerIn: parent
-                    width: parent.width
-                    height: parent.height
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    font.pixelSize: 16
-                }
-            }
+        CurrentView {
+            id: currentSecond
+            // @disable-check M16
+            title: "Air Conditions"
         }
 
         Item {
