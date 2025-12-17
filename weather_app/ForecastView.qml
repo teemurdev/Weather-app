@@ -33,7 +33,7 @@ Item {
                             anchors.centerIn: parent
                             width: parent.width
                             height: parent.height
-                            text: "klo\n" + modelData.Time
+                            text: modelData.Time + ":00"
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             font.pixelSize: 16

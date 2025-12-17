@@ -23,7 +23,7 @@ signals:
     void forecastDataReady(const QVariantMap &payload);
 
     // Emits error messages
-    void errorOccured(const QString &errorString);
+    void errorOccurred(const QString &errorString);
 
 private slots:
     // Handles the network reply

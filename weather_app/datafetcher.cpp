@@ -45,7 +45,7 @@ void DataFetcher::onFinished(QNetworkReply *reply)
     // Network error
     if (reply->error() != QNetworkReply::NoError) {
         qWarning() << "Network error:" << reply->errorString();
-        emit errorOccured(reply->errorString());
+        emit errorOccurred(reply->errorString());
         reply->deleteLater();
         return;
     }
@@ -65,7 +65,7 @@ void DataFetcher::onFinished(QNetworkReply *reply)
         if (xml.isStartElement() && xml.name() == "beginPosition") {
             QString utcTimeStr = xml.readElementText();
             QDateTime utcTime = QDateTime::fromString(utcTimeStr, Qt::ISODate);
-            time = utcTime;//.toTimeZone(QTimeZone("Europe/Helsinki"));
+            time = utcTime.toTimeZone(QTimeZone(QTimeZone::LocalTime));
         }
         // Place data
         if (xml.isStartElement() && xml.name() ==
@@ -95,7 +95,8 @@ void DataFetcher::onFinished(QNetworkReply *reply)
         QVariantMap row;
 
         // For every new row, add 1 hour to time
-        QDateTime timeStamp = time.addSecs((i/fieldCount)*60*60);
+        int hoursOffset = i/fieldCount;
+        QDateTime timeStamp = time.addSecs(hoursOffset*60*60);
         QString formattedTimeStamp = timeStamp.toString("HH");
         row["Time"] = formattedTimeStamp;
 
@@ -148,7 +149,7 @@ void DataFetcher::onFinished(QNetworkReply *reply)
 
     // Emit signals
     if (xml.hasError()) {
-        emit errorOccured(xml.errorString());
+        emit errorOccurred(xml.errorString());
     } else {
         // Signal to QML
         emit currentDataReady(currentData);
