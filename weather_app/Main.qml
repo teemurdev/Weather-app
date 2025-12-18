@@ -59,7 +59,7 @@ ApplicationWindow {
                 { modelData: todayData }
             ])
         }
-        function onErrorOccured(errorString) {
+        function onErrorOccurred(errorString) {
             weatherData = errorString
         }
     }
@@ -112,14 +112,14 @@ ApplicationWindow {
 
         CurrentView {
             id: currentFirst
-            // @disable-check M16
             title: "Current Weather"
+            showSymbol: true
         }
 
         CurrentView {
             id: currentSecond
-            // @disable-check M16
             title: "Air Conditions"
+            showSymbol: false
         }
 
         Item {

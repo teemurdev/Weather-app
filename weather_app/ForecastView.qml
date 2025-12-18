@@ -45,21 +45,19 @@ Item {
                         height: parent.height
                         color: "grey"
 
-                        /*Text {
+                        Item {
                             anchors.centerIn: parent
-                            width: parent.width
-                            height: parent.height
-                            text: modelData.WeatherSymbol
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            font.pixelSize: 16
-                        }*/
+                            width: Math.min(parent.width, parent.height)
+                            height: width
 
-                        Image {
-                            anchors.centerIn: parent
-                            source: "qrc:/resources/symbols/light/" + modelData.WeatherSymbol + ".svg"
-                            width: parent.width
-                            height: parent.height
+                            Image {
+                                anchors.centerIn: parent
+                                source: "qrc:/resources/symbols/light/"
+                                        + modelData.WeatherSymbol + ".svg"
+                                sourceSize.width: parent.width
+                                sourceSize.height: parent.height
+                                smooth: false
+                            }
                         }
                     }
 

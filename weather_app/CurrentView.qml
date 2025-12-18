@@ -6,6 +6,7 @@ Item {
     property string leftText
     property string centerText
     property string rightText
+    property bool showSymbol
 
     width: parent.width
     height: parent.height / 3
@@ -53,6 +54,24 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             font.pixelSize: 16
+            visible: !showSymbol
+        }
+
+        Loader {
+            anchors.centerIn: parent
+            width: Math.min(parent.width, parent.height)
+            height: width
+            active: showSymbol && centerText !== ""
+            sourceComponent:
+
+            Image {
+                anchors.centerIn: parent
+                source: "qrc:/resources/symbols/light/"
+                        + centerText + ".svg"
+                sourceSize.width: parent.width
+                sourceSize.height: parent.height
+                smooth: false
+            }
         }
     }
 
