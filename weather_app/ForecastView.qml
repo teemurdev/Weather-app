@@ -45,7 +45,7 @@ Item {
                         height: parent.height
                         color: "grey"
 
-                        Text {
+                        /*Text {
                             anchors.centerIn: parent
                             width: parent.width
                             height: parent.height
@@ -53,6 +53,13 @@ Item {
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             font.pixelSize: 16
+                        }*/
+
+                        Image {
+                            anchors.centerIn: parent
+                            source: "qrc:/resources/symbols/light/" + modelData.WeatherSymbol + ".svg"
+                            width: parent.width
+                            height: parent.height
                         }
                     }
 

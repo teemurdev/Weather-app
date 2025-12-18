@@ -27,7 +27,7 @@ void DataFetcher::buildAndSendRequest(const QString &place)
     q.addQueryItem("request",         "getFeature");
     q.addQueryItem("storedquery_id",  "fmi::forecast::harmonie::surface::"
                                       "point::multipointcoverage");
-    q.addQueryItem("parameters",      "WeatherSymbol3,Temperature,"
+    q.addQueryItem("parameters",      "SmartSymbol,Temperature,"
                                       "PrecipitationAmount,"
                                       "WindDirection,WindSpeedMS,"
                                       "WindGust,Humidity,TotalCloudCover");
