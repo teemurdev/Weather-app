@@ -64,6 +64,13 @@ ApplicationWindow {
         }
     }
 
+    Image {
+        anchors.fill: parent
+        source: "qrc:/resources/backgrounds/light.jpg"
+        fillMode: Image.Stretch
+        smooth: true
+    }
+
     Item {
         id: topPart
         width: parent.width
