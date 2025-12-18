@@ -22,6 +22,14 @@ qt_add_qml_module(weather_app
         Main.qml
         ForecastView.qml
         CurrentView.qml
+    RESOURCES resources.qrc
+)
+
+file(GLOB SYMBOL_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} resources/symbols/dark/*.svg resources/symbols/light/*.svg)
+
+qt_add_resources(weather_app "symbols"
+    PREFIX "/"
+    FILES ${SYMBOL_FILES}
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
