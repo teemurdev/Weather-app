@@ -53,11 +53,11 @@ ApplicationWindow {
                     IsSymbol: false
                 },
                 {
-                    Text: payload.TotalCloudCover + " %",
+                    Text: "Clouds:\n" + payload.TotalCloudCover + " %",
                     IsSymbol: false
                 },
                 {
-                    Text: payload.Humidity + " %",
+                    Text: "Humudity:\n" + payload.Humidity + " %",
                     IsSymbol: false
                 }
             ]
@@ -99,7 +99,6 @@ ApplicationWindow {
         }
         function onErrorOccurred(errorString) {
             isSearched = false
-            weatherData = errorString
         }
     }
 
@@ -147,6 +146,27 @@ ApplicationWindow {
             text: Qt.formatDateTime(new Date(), "dd.MM.yyyy")
             horizontalAlignment: Text.AlignRight
             font.pixelSize: Math.min(parent.height * 0.5, 25)
+        }
+    }
+    Rectangle {
+        anchors.top: topPart.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: parent.width / 2
+        height: parent.height / 3
+        radius: 10
+        color: Qt.rgba(1, 1, 1, 0.7)
+        visible: !isSearched
+
+        Text{
+            id: infoText
+            anchors.centerIn: parent
+            text: "⬆️Add a city here⬆️\n\n" +
+                  "Welcome to Weather App\n" +
+                  "Supports Finnish cities\n" +
+                  "(and other Nordic cities)\n" +
+                  "Weather is shown if city is found"
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: Math.min(parent.height * 0.1, 25)
         }
     }
 
