@@ -1,96 +1,76 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts
 
 Item {
     property string title
-    property string leftText
-    property string centerText
-    property string rightText
-    property bool showSymbol
+    property var currentData: []
 
     width: parent.width
     height: parent.height / 3
+    visible: currentData && currentData.length > 0
 
-    Text {
-        id: titleBox
+    Item {
+        anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        text: title
-        font.pixelSize: 18
-        padding: parent.height * 0.1
-    }
-
-    Rectangle {
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        width: parent.width * .3
-        height: parent.height * .7
-        color: "grey"
+        width: parent.width
+        height: parent.height * 0.3
 
         Text {
-            id: leftBox
             anchors.centerIn: parent
-            text: leftText
-            width: parent.width
-            height: parent.height
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            font.pixelSize: 16
+            text: title
+            font.pixelSize: Math.min(parent.height * 0.5, 25)
         }
     }
 
-    Rectangle {
+    RowLayout {
         anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-        width: parent.width * .3
+        width: parent.width
         height: parent.height * .7
-        color: "grey"
 
-        Text {
-            id: centerBox
-            anchors.centerIn: parent
-            text: centerText
-            width: parent.width
-            height: parent.height
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            font.pixelSize: 16
-            visible: !showSymbol
-        }
+        Repeater {
+            model: currentData
 
-        Loader {
-            anchors.centerIn: parent
-            width: Math.min(parent.width, parent.height)
-            height: width
-            active: showSymbol && centerText !== ""
-            sourceComponent:
+            Item {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
-            Image {
-                anchors.centerIn: parent
-                source: "qrc:/resources/symbols/light/"
-                        + centerText + ".svg"
-                sourceSize.width: parent.width
-                sourceSize.height: parent.height
-                smooth: false
+                Rectangle {
+                    anchors.centerIn: parent
+                    width: parent.width * .9
+                    height: parent.height * .9
+                    radius: 10
+                    color: Qt.rgba(0.5, 0.5, 0.5, 0.7)
+
+                    Text {
+                        anchors.centerIn: parent
+                        width: parent.width
+                        height: parent.height
+                        text: modelData.Text
+                        visible: !modelData.IsSymbol
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        font.pixelSize: Math.min(parent.height * 0.2, 25)
+                    }
+
+                    Loader {
+                        anchors.centerIn: parent
+                        width: Math.min(parent.width, parent.height)
+                        height: width
+                        active: modelData.IsSymbol
+                        sourceComponent:
+
+                        Image {
+                            anchors.centerIn: parent
+                            source: "qrc:/resources/symbols/light/"
+                                    + modelData.Text + ".svg"
+                            sourceSize.width: parent.width
+                            sourceSize.height: parent.height
+                            smooth: false
+                        }
+                    }
+                }
             }
-        }
-    }
-
-    Rectangle {
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        width: parent.width * .3
-        height: parent.height * .7
-        color: "grey"
-
-        Text {
-            id: rightBox
-            anchors.centerIn: parent
-            text: rightText
-            width: parent.width
-            height: parent.height
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            font.pixelSize: 16
         }
     }
 }

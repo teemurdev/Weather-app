@@ -22,17 +22,38 @@ ApplicationWindow {
         function onCurrentDataReady(payload) {
             // Update info
             // First row
-            currentFirst.leftText = payload.Place + "\n" +
-                             Qt.formatDateTime(new Date(), "dd MMM")
-            currentFirst.centerText = payload.WeatherSymbol
-            currentFirst.rightText = payload.Temperature + " °C"
+            currentFirst.currentData = [
+                {
+                    Text: payload.Place + "\n" + Qt.formatDateTime(new Date(), "dd MMM"),
+                    IsSymbol: false
+                },
+                {
+                    Text: payload.WeatherSymbol,
+                    IsSymbol: true
+                },
+                {
+                    Text: payload.Temperature + " °C",
+                    IsSymbol: false
+                }
+            ]
 
             // Second row
-            currentSecond.leftText = payload.WindDirection + " °\n" +
-                            payload.WindSpeed + " m/s\n" +
-                            "(" + payload.WindGust + " m/s)"
-            currentSecond.centerText = payload.TotalCloudCover + " %"
-            currentSecond.rightText = payload.Humidity + " %"
+            currentSecond.currentData = [
+                {
+                    Text: payload.WindDirection + " °\n" +
+                          payload.WindSpeed + " m/s\n" +
+                          "(" + payload.WindGust + " m/s)",
+                    IsSymbol: false
+                },
+                {
+                    Text: payload.TotalCloudCover + " %",
+                    IsSymbol: false
+                },
+                {
+                    Text: payload.Humidity + " %",
+                    IsSymbol: false
+                }
+            ]
 
             // Third row
             next12h.next12hData = [
@@ -130,13 +151,11 @@ ApplicationWindow {
         CurrentView {
             id: currentFirst
             title: "Current Weather"
-            showSymbol: true
         }
 
         CurrentView {
             id: currentSecond
             title: "Air Conditions"
-            showSymbol: false
         }
 
         Next12hView {
