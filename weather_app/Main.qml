@@ -18,6 +18,7 @@ ApplicationWindow {
     }
 
     property bool isSearched: false
+    property bool darkMode: false
 
     property var todayData: []
     property var tomorrowData: []
@@ -110,7 +111,9 @@ ApplicationWindow {
 
     Image {
         anchors.fill: parent
-        source: "qrc:/resources/backgrounds/light.jpg"
+        source: darkMode
+            ? "qrc:/resources/backgrounds/dark.jpg"
+            : "qrc:/resources/backgrounds/light.jpg"
         fillMode: Image.Stretch
         smooth: true
     }
@@ -135,7 +138,7 @@ ApplicationWindow {
             id: cityInput
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: appName.right
-            anchors.right: dateText.left
+            anchors.right: dateAndMode.left
             height: parent.height * .5
             placeholderText: "Write city here"
             horizontalAlignment: Text.AlignHCenter
@@ -143,15 +146,31 @@ ApplicationWindow {
             onAccepted: fetcher.fetchWeather(cityInput.text)
         }
 
-        Text{
-            id: dateText
+        Item {
+            id: dateAndMode
             anchors.right: parent.right
             anchors.rightMargin: width * 0.1
             anchors.verticalCenter: parent.verticalCenter
             width: parent.width * 0.25
-            text: Qt.formatDateTime(new Date(), "dd.MM.yyyy")
-            horizontalAlignment: Text.AlignRight
-            font.pixelSize: Math.min(parent.height * 0.5, 25)
+
+            Text{
+                id: dateText
+                anchors.right: parent.right
+                anchors.left: parent.left
+                anchors.bottom: parent.verticalCenter
+                width: parent.width
+                text: Qt.formatDateTime(new Date(), "dd.MM.yyyy")
+                horizontalAlignment: Text.AlignRight
+                font.pixelSize: Math.min(parent.height * 0.5, 25)
+            }
+
+            Switch {
+                anchors.right: parent.right
+                anchors.top: parent.verticalCenter
+                text: darkMode ? "Dark" : "Light"
+                checked: darkMode
+                onCheckedChanged: darkMode = checked
+            }
         }
     }
     Rectangle {
