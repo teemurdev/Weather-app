@@ -22,6 +22,7 @@ qt_add_qml_module(weather_app
         Main.qml
         ForecastView.qml
         CurrentView.qml
+        Next12hView.qml
     RESOURCES resources.qrc
 )
 

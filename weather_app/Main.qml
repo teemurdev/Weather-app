@@ -35,18 +35,28 @@ ApplicationWindow {
             currentSecond.rightText = payload.Humidity + " %"
 
             // Third row
-            in3hours.text = "In 3 h:\n" +
-                            payload.In3hours.WeatherSymbol + "\n" +
-                            payload.In3hours.Temperature + " °C"
-            in6hours.text = "In 6 h:\n" +
-                            payload.In6hours.WeatherSymbol + "\n" +
-                            payload.In6hours.Temperature + " °C"
-            in9hours.text = "In 9 h:\n" +
-                            payload.In9hours.WeatherSymbol + "\n" +
-                            payload.In9hours.Temperature + " °C"
-            in12hours.text = "In 12 h:\n" +
-                             payload.In12hours.WeatherSymbol + "\n" +
-                             payload.In12hours.Temperature + " °C"
+            next12h.next12hData = [
+                {
+                    Hours: "In 3 h:",
+                    WeatherSymbol: payload.In3hours.WeatherSymbol,
+                    Temperature: payload.In3hours.Temperature + " °C"
+                },
+                {
+                    Hours: "In 6 h:",
+                    WeatherSymbol: payload.In6hours.WeatherSymbol,
+                    Temperature: payload.In6hours.Temperature + " °C"
+                },
+                {
+                    Hours: "In 9 h:",
+                    WeatherSymbol: payload.In9hours.WeatherSymbol,
+                    Temperature: payload.In9hours.Temperature + " °C"
+                },
+                {
+                    Hours: "In 12 h:",
+                    WeatherSymbol: payload.In12hours.WeatherSymbol,
+                    Temperature: payload.In12hours.Temperature + " °C"
+                }
+            ]
         }
         function onForecastDataReady(payload) {
             todayData = payload.Today
@@ -129,91 +139,8 @@ ApplicationWindow {
             showSymbol: false
         }
 
-        Item {
-            id: leftPartThird
-            width: parent.width
-            height: parent.height / 3
-
-            Text {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: "Next 12h Forecast"
-                font.pixelSize: 18
-                padding: parent.height * 0.1
-            }
-
-            Row {
-                width: parent.width
-                height: parent.height
-                spacing: parent.width / 15
-
-                Rectangle {
-                    anchors.bottom: parent.bottom
-                    width: parent.width * .2
-                    height: parent.height * .7
-                    color: "grey"
-
-                    Text {
-                        id: in3hours
-                        anchors.centerIn: parent
-                        width: parent.width
-                        height: parent.height
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        font.pixelSize: 18
-                    }
-                }
-
-                Rectangle {
-                    anchors.bottom: parent.bottom
-                    width: parent.width * .2
-                    height: parent.height * .7
-                    color: "grey"
-
-                    Text {
-                        id: in6hours
-                        anchors.centerIn: parent
-                        width: parent.width
-                        height: parent.height
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        font.pixelSize: 18
-                    }
-                }
-
-                Rectangle {
-                    anchors.bottom: parent.bottom
-                    width: parent.width * .2
-                    height: parent.height * .7
-                    color: "grey"
-
-                    Text {
-                        id: in9hours
-                        anchors.centerIn: parent
-                        width: parent.width
-                        height: parent.height
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        font.pixelSize: 18
-                    }
-                }
-
-                Rectangle {
-                    anchors.bottom: parent.bottom
-                    width: parent.width * .2
-                    height: parent.height * .7
-                    color: "grey"
-
-                    Text {
-                        id: in12hours
-                        anchors.centerIn: parent
-                        width: parent.width
-                        height: parent.height
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        font.pixelSize: 18
-                    }
-                }
-            }
+        Next12hView {
+            id: next12h
         }
     }
 
