@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Basic
 import QtQuick.Layouts
 
 Item {
@@ -9,11 +10,22 @@ Item {
         id: hourlyData
         width: parent.width
         height: parent.height
-        ScrollBar.vertical.policy: ScrollBar.AlwaysOff
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff        
+        ScrollBar.vertical: ScrollBar {
+            id: scrollBar
+            policy: ScrollBar.AlwaysOn
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.top: parent.top
+            contentItem: Rectangle {
+                implicitWidth: 10
+                radius: 5
+                color: "white"
+            }
+        }
 
         Column {
-            width: hourlyData.width
+            width: hourlyData.width - scrollBar.width
             spacing: hourlyData.height / 50
 
             Repeater {

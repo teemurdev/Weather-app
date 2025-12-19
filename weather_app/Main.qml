@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Basic
 import QtQuick.Layouts
 import weather_app 1.0
 
@@ -8,6 +9,8 @@ ApplicationWindow {
     visible: true;
     width: 800 //1440
     height: 600 //900
+    minimumWidth: 400
+    minimumHeight: 300
     title: "Weather App"
 
     DataFetcher {
@@ -120,7 +123,7 @@ ApplicationWindow {
             width: parent.width * 0.25
             text: "Weather App"
             horizontalAlignment: Text.AlignLeft
-            font.pixelSize: 18
+            font.pixelSize: Math.min(parent.height * 0.5, 25)
         }
 
         TextField {
@@ -128,9 +131,10 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: appName.right
             anchors.right: dateText.left
+            height: parent.height * .5
             placeholderText: "Write city here"
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 18
+            font.pixelSize: Math.min(height * 0.6, 25)
             onAccepted: fetcher.fetchWeather(cityInput.text)
         }
 
@@ -142,7 +146,7 @@ ApplicationWindow {
             width: parent.width * 0.25
             text: Qt.formatDateTime(new Date(), "dd.MM.yyyy")
             horizontalAlignment: Text.AlignRight
-            font.pixelSize: 18
+            font.pixelSize: Math.min(parent.height * 0.5, 25)
         }
     }
 
@@ -207,6 +211,12 @@ ApplicationWindow {
                     height: parent.height
                     text: "Today"
                     font.pixelSize: Math.min(parent.height * 0.3, 25)
+                    background: Rectangle {
+                        color: parent.hovered ? Qt.rgba(0.5, 0.5, 0.5, 0.7) : Qt.rgba(1, 1, 1, 0.7)
+                        radius: 8
+                        border.color: Qt.rgba(0, 0, 0, 0.7)
+                        border.width: 2
+                    }
                     onClicked: stack.replace([
                         "ForecastView.qml",
                         { modelData: todayData }
@@ -226,6 +236,12 @@ ApplicationWindow {
                     height: parent.height
                     text: "Tomorrow"
                     font.pixelSize: Math.min(parent.height * 0.3, 25)
+                    background: Rectangle {
+                        color: parent.hovered ? Qt.rgba(0.5, 0.5, 0.5, 0.7) : Qt.rgba(1, 1, 1, 0.7)
+                        radius: 8
+                        border.color: Qt.rgba(0, 0, 0, 0.7)
+                        border.width: 2
+                    }
                     onClicked: stack.replace([
                         "ForecastView.qml",
                         { modelData: tomorrowData }
@@ -245,6 +261,12 @@ ApplicationWindow {
                     height: parent.height
                     text: "In 2 Days"
                     font.pixelSize: Math.min(parent.height * 0.3, 25)
+                    background: Rectangle {
+                        color: parent.hovered ? Qt.rgba(0.5, 0.5, 0.5, 0.7) : Qt.rgba(1, 1, 1, 0.7)
+                        radius: 8
+                        border.color: Qt.rgba(0, 0, 0, 0.7)
+                        border.width: 2
+                    }
                     onClicked: stack.replace([
                         "ForecastView.qml",
                         { modelData: in2DaysData }
