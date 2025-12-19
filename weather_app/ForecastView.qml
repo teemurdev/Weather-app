@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts
 
 Item {
     property var modelData
@@ -12,22 +13,24 @@ Item {
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
         Column {
-            width: parent.width
-            height: parent.height
-            spacing: 15
+            width: hourlyData.width
+            spacing: hourlyData.height / 50
 
             Repeater {
                 model: modelData
 
-                Row {
-                    width: parent.width
-                    height: hourlyData.height / 7
-                    spacing: parent.width / 50
+                RowLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    height: hourlyData.height / 6
+                    spacing: width / 50
 
                     Rectangle {
-                        width: parent.width / 8
-                        height: parent.height
-                        color: "grey"
+                        Layout.preferredWidth: 1
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        radius: 10
+                        color: Qt.rgba(0.5, 0.5, 0.5, 0.7)
 
                         Text {
                             anchors.centerIn: parent
@@ -36,14 +39,16 @@ Item {
                             text: modelData.Time + ":00"
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            font.pixelSize: 16
+                            font.pixelSize: Math.min(parent.height * 0.25, 25)
                         }
                     }
 
                     Rectangle {
-                        width: parent.width / 7
-                        height: parent.height
-                        color: "grey"
+                        Layout.preferredWidth: 1
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        radius: 10
+                        color: Qt.rgba(0.5, 0.5, 0.5, 0.7)
 
                         Item {
                             anchors.centerIn: parent
@@ -62,9 +67,11 @@ Item {
                     }
 
                     Rectangle {
-                        width: parent.width / 5
-                        height: parent.height
-                        color: "grey"
+                        Layout.preferredWidth: 2
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        radius: 10
+                        color: Qt.rgba(0.5, 0.5, 0.5, 0.7)
 
                         Text {
                             anchors.centerIn: parent
@@ -74,15 +81,16 @@ Item {
                                   modelData.PrecipitationAmount + " mm"
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            font.pixelSize: 16
+                            font.pixelSize: Math.min(parent.height * 0.25, 25)
                         }
                     }
 
                     Rectangle {
-                        width: parent.width / 4
-                        height: parent.height
-                        color: "grey"
-
+                        Layout.preferredWidth: 2
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        radius: 10
+                        color: Qt.rgba(0.5, 0.5, 0.5, 0.7)
                         Text {
                             anchors.centerIn: parent
                             width: parent.width
@@ -92,14 +100,16 @@ Item {
                                   "(" + modelData.WindGust + " m/s)"
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            font.pixelSize: 16
+                            font.pixelSize: Math.min(parent.height * 0.25, 25)
                         }
                     }
 
                     Rectangle {
-                        width: parent.width / 5
-                        height: parent.height
-                        color: "grey"
+                        Layout.preferredWidth: 2
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        radius: 10
+                        color: Qt.rgba(0.5, 0.5, 0.5, 0.7)
 
                         Text {
                             anchors.centerIn: parent
@@ -109,7 +119,7 @@ Item {
                                   modelData.Humidity + " %"
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            font.pixelSize: 16
+                            font.pixelSize: Math.min(parent.height * 0.25, 25)
                         }
                     }
                 }

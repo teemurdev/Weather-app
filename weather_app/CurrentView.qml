@@ -38,7 +38,7 @@ Item {
                 Rectangle {
                     anchors.centerIn: parent
                     width: parent.width * .9
-                    height: parent.height * .9
+                    height: parent.height
                     radius: 10
                     color: Qt.rgba(0.5, 0.5, 0.5, 0.7)
 

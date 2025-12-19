@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts
 import weather_app 1.0
 
 ApplicationWindow {
@@ -13,6 +14,8 @@ ApplicationWindow {
         id: fetcher
     }
 
+    property bool isSearched: false
+
     property var todayData: []
     property var tomorrowData: []
     property var in2DaysData: []
@@ -20,6 +23,7 @@ ApplicationWindow {
     Connections {
         target: fetcher
         function onCurrentDataReady(payload) {
+            isSearched = true
             // Update info
             // First row
             currentFirst.currentData = [
@@ -91,6 +95,7 @@ ApplicationWindow {
             ])
         }
         function onErrorOccurred(errorString) {
+            isSearched = false
             weatherData = errorString
         }
     }
@@ -147,6 +152,7 @@ ApplicationWindow {
         anchors.left: parent.left
         anchors.right: parent.horizontalCenter
         anchors.bottom: parent.bottom
+        visible: isSearched
 
         CurrentView {
             id: currentFirst
@@ -169,65 +175,97 @@ ApplicationWindow {
         anchors.left: parent.horizontalCenter
         anchors.right: parent.right
         anchors.bottom: parent.bottom
+        visible: isSearched
 
-        Text {
-            width: parent.width;
+        Item {
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width
             height: parent.height * 0.1
-            text: "Forecast"
-            horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 18
-            padding: parent.height / 3 * 0.1 // From leftPart
+
+            Text {
+                anchors.centerIn: parent
+                text: "Forecast"
+                font.pixelSize: Math.min(parent.height * 0.5, 25)
+            }
         }
 
-        Row {
+        RowLayout {
             id: dayButtons
-            width: parent.width
+            anchors.left: parent.left
+            anchors.right: parent.right
             height: parent.height * 0.1
-            spacing: parent.width * 0.05
 
-            Button {
-                id: todayButton
-                width: parent.width * .3
-                height: parent.height * .7
-                text: "Today"
-                font.pixelSize: 18
-                onClicked: stack.replace([
-                    "ForecastView.qml",
-                    { modelData: todayData }
-                ])
+            Item {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredWidth: 1
+
+                Button {
+                    id: todayButton
+                    anchors.centerIn: parent
+                    width: parent.width * .9
+                    height: parent.height
+                    text: "Today"
+                    font.pixelSize: Math.min(parent.height * 0.3, 25)
+                    onClicked: stack.replace([
+                        "ForecastView.qml",
+                        { modelData: todayData }
+                    ])
+                }
             }
 
-            Button {
-                id: tomorrowButton
-                width: parent.width * .3
-                height: parent.height * .7
-                text: "Tomorrow"
-                font.pixelSize: 18
-                onClicked: stack.replace([
-                    "ForecastView.qml",
-                    { modelData: tomorrowData }
-                ])
+            Item {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredWidth: 1
+
+                Button {
+                    id: tomorrowButton
+                    anchors.centerIn: parent
+                    width: parent.width * .9
+                    height: parent.height
+                    text: "Tomorrow"
+                    font.pixelSize: Math.min(parent.height * 0.3, 25)
+                    onClicked: stack.replace([
+                        "ForecastView.qml",
+                        { modelData: tomorrowData }
+                    ])
+                }
             }
 
-            Button {
-                id: in2daysButton
-                width: parent.width * .3
-                height: parent.height * .7
-                text: "In 2 Days"
-                font.pixelSize: 18
-                onClicked: stack.replace([
-                    "ForecastView.qml",
-                    { modelData: in2DaysData }
-                ])
+            Item {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredWidth: 1
+
+                Button {
+                    id: in2daysButton
+                    anchors.centerIn: parent
+                    width: parent.width * .9
+                    height: parent.height
+                    text: "In 2 Days"
+                    font.pixelSize: Math.min(parent.height * 0.3, 25)
+                    onClicked: stack.replace([
+                        "ForecastView.qml",
+                        { modelData: in2DaysData }
+                    ])
+                }
             }
         }
 
-        StackView {
-            id: stack
+        Item {
             width: parent.width
-            height: parent.height * 0.8
-            initialItem: { "ForecastView.qml" }
-            clip: true
+            height: parent.height * .8
+
+            StackView {
+                id: stack
+                anchors.bottom: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width * .95
+                height: parent.height
+                initialItem: { "ForecastView.qml" }
+                clip: true
+            }
         }
     }
 }
