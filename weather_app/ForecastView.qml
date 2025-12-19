@@ -28,6 +28,48 @@ Item {
             width: hourlyData.width - scrollBar.width
             spacing: hourlyData.height / 50
 
+            RowLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: hourlyData.height / 15
+                spacing: width / 50
+
+                Repeater {
+                    model: [
+                        {Width: 1, Text: "Time", InfoText: "Local time"},
+                        {Width: 1, Text: "Symbol", InfoText: "Weather symbol"},
+                        {Width: 2, Text: "Temperature/Rain", InfoText: "Temperature and rain"},
+                        {Width: 2, Text: "Wind", InfoText: "Wind direction, speed and gust"},
+                        {Width: 2, Text: "Clouds/Humudity", InfoText: "Cloud coverage and humudity"},
+                    ]
+
+                    Item {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: modelData.Width
+
+                        Button {
+                            text: modelData.Text
+                            anchors.centerIn: parent
+                            width: parent.width * .9
+                            height: parent.height * .9
+                            background: Rectangle {
+                                color: parent.hovered ? Qt.rgba(0.5, 0.5, 0.5, 0.7) : Qt.rgba(1, 1, 1, 0.7)
+                                radius: 8
+                                border.color: Qt.rgba(0, 0, 0, 0.7)
+                                border.width: 2
+                            }
+                            font.pixelSize: Math.min(parent.height * 0.25, 25)
+
+                            ToolTip.visible: hovered
+                            ToolTip.text: modelData.InfoText
+                            ToolTip.delay: 300
+                            ToolTip.timeout: 3000
+                        }
+                    }
+                }
+            }
+
             Repeater {
                 model: modelData
 

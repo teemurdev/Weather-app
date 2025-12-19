@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Basic
 import QtQuick.Layouts
 
 Item {
@@ -41,6 +42,26 @@ Item {
                     height: parent.height
                     radius: 10
                     color: Qt.rgba(0.5, 0.5, 0.5, 0.7)
+
+                    Button {
+                        text: "i️"
+                        anchors.top: parent.top
+                        anchors.right: parent.right
+                        width: parent.width * .2
+                        height: parent.height * .2
+                        background: Rectangle {
+                            color: parent.hovered ? Qt.rgba(0.5, 0.5, 0.5, 0.7) : Qt.rgba(1, 1, 1, 0.7)
+                            radius: 8
+                            border.color: Qt.rgba(0, 0, 0, 0.7)
+                            border.width: 2
+                        }
+                        font.pixelSize: Math.min(parent.height * 0.1, 25)
+
+                        ToolTip.visible: hovered
+                        ToolTip.text: modelData.InfoText
+                        ToolTip.delay: 300
+                        ToolTip.timeout: 3000
+                    }
 
                     Text {
                         anchors.centerIn: parent

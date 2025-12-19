@@ -31,14 +31,17 @@ ApplicationWindow {
             // First row
             currentFirst.currentData = [
                 {
+                    InfoText: "Place and time",
                     Text: payload.Place + "\n" + Qt.formatDateTime(new Date(), "dd MMM"),
                     IsSymbol: false
                 },
                 {
+                    InfoText: "Weather symbol",
                     Text: payload.WeatherSymbol,
                     IsSymbol: true
                 },
                 {
+                    InfoText: "Temperature",
                     Text: payload.Temperature + " °C",
                     IsSymbol: false
                 }
@@ -47,16 +50,19 @@ ApplicationWindow {
             // Second row
             currentSecond.currentData = [
                 {
+                    InfoText: "Wind direction, speed and gust",
                     Text: payload.WindDirection + " °\n" +
                           payload.WindSpeed + " m/s\n" +
                           "(" + payload.WindGust + " m/s)",
                     IsSymbol: false
                 },
                 {
+                    InfoText: "Cloud coverage",
                     Text: "Clouds:\n" + payload.TotalCloudCover + " %",
                     IsSymbol: false
                 },
                 {
+                    InfoText: "Humudity",
                     Text: "Humudity:\n" + payload.Humidity + " %",
                     IsSymbol: false
                 }
