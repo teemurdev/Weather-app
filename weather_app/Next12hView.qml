@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Layouts
 
 Item {
+    property bool mode
     property var next12hData: []
 
     width: parent.width
@@ -17,6 +18,7 @@ Item {
         Text {
             anchors.centerIn: parent
             text: "Next 12h Forecast"
+            color: mode ? "white" : "black"
             font.pixelSize: Math.min(parent.height * 0.5, 25)
         }
     }

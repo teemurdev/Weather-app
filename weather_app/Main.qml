@@ -18,7 +18,7 @@ ApplicationWindow {
     }
 
     property bool isSearched: false
-    property bool darkMode: false
+    property bool isDarkMode: false
 
     property var todayData: []
     property var tomorrowData: []
@@ -111,7 +111,7 @@ ApplicationWindow {
 
     Image {
         anchors.fill: parent
-        source: darkMode
+        source: isDarkMode
             ? "qrc:/resources/backgrounds/dark.jpg"
             : "qrc:/resources/backgrounds/light.jpg"
         fillMode: Image.Stretch
@@ -130,6 +130,7 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
             width: parent.width * 0.25
             text: "Weather App"
+            color: isDarkMode ? "white" : "black"
             horizontalAlignment: Text.AlignLeft
             font.pixelSize: Math.min(parent.height * 0.5, 25)
         }
@@ -146,30 +147,47 @@ ApplicationWindow {
             onAccepted: fetcher.fetchWeather(cityInput.text)
         }
 
-        Item {
+        Column {
             id: dateAndMode
             anchors.right: parent.right
             anchors.rightMargin: width * 0.1
             anchors.verticalCenter: parent.verticalCenter
             width: parent.width * 0.25
+            height: parent.height
 
             Text{
                 id: dateText
-                anchors.right: parent.right
-                anchors.left: parent.left
-                anchors.bottom: parent.verticalCenter
                 width: parent.width
+                height: parent.height / 2
                 text: Qt.formatDateTime(new Date(), "dd.MM.yyyy")
+                color: isDarkMode ? "white" : "black"
                 horizontalAlignment: Text.AlignRight
-                font.pixelSize: Math.min(parent.height * 0.5, 25)
+                verticalAlignment: Text.AlignVCenter
+                font.pixelSize: Math.min(parent.height * 0.25, 25)
             }
 
-            Switch {
-                anchors.right: parent.right
-                anchors.top: parent.verticalCenter
-                text: darkMode ? "Dark" : "Light"
-                checked: darkMode
-                onCheckedChanged: darkMode = checked
+            Item {
+                width: parent.width
+                height: parent.height / 2
+
+                ToolButton {
+                    id: switchMode
+                    checkable: true
+                    checked: isDarkMode
+                    onCheckedChanged: isDarkMode = checked
+                    width: parent.width * .5
+                    height: parent.height * .8
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    contentItem: Text {
+                        text: switchMode.checked ? "Dark mode" : "Light mode"
+                        color: switchMode.checked ? "white" : "black"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        font.pixelSize: Math.min(parent.height * 0.5, 25)
+                    }
+                }
             }
         }
     }
@@ -206,15 +224,18 @@ ApplicationWindow {
         CurrentView {
             id: currentFirst
             title: "Current Weather"
+            mode: isDarkMode
         }
 
         CurrentView {
             id: currentSecond
             title: "Air Conditions"
+            mode: isDarkMode
         }
 
         Next12hView {
             id: next12h
+            mode: isDarkMode
         }
     }
 
@@ -234,6 +255,7 @@ ApplicationWindow {
             Text {
                 anchors.centerIn: parent
                 text: "Forecast"
+                color: isDarkMode ? "white" : "black"
                 font.pixelSize: Math.min(parent.height * 0.5, 25)
             }
         }

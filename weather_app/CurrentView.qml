@@ -5,6 +5,7 @@ import QtQuick.Layouts
 
 Item {
     property string title
+    property bool mode
     property var currentData: []
 
     width: parent.width
@@ -20,6 +21,7 @@ Item {
         Text {
             anchors.centerIn: parent
             text: title
+            color: mode ? "white" : "black"
             font.pixelSize: Math.min(parent.height * 0.5, 25)
         }
     }
