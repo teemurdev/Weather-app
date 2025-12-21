@@ -63,8 +63,8 @@ ApplicationWindow {
                     IsSymbol: false
                 },
                 {
-                    InfoText: "Humudity",
-                    Text: "Humudity:\n" + payload.Humidity + " %",
+                    InfoText: "Humidity",
+                    Text: "Humidity:\n" + payload.Humidity + " %",
                     IsSymbol: false
                 }
             ]
@@ -203,11 +203,11 @@ ApplicationWindow {
         Text{
             id: infoText
             anchors.centerIn: parent
-            text: "⬆️Add a city here⬆️\n\n" +
-                  "Welcome to Weather App\n" +
-                  "Supports Finnish cities\n" +
-                  "(and other Nordic cities)\n" +
-                  "Weather is shown if city is found"
+            text: "Welcome to Weather App\n\n" +
+                  "Start by typing a city name into text field\n" +
+                  "Supports Nordic (and some European) cities\n" +
+                  "Weather will be shown if the city is found\n" +
+                  "If not, this page will remain visible"
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: Math.min(parent.height * 0.1, 25)
         }

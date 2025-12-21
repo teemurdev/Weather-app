@@ -40,7 +40,7 @@ Item {
                         {Width: 1, Text: "Symbol", InfoText: "Weather symbol"},
                         {Width: 2, Text: "Temperature/Rain", InfoText: "Temperature and rain"},
                         {Width: 2, Text: "Wind", InfoText: "Wind direction, speed and gust"},
-                        {Width: 2, Text: "Clouds/Humudity", InfoText: "Cloud coverage and humudity"},
+                        {Width: 2, Text: "Clouds/Humidity", InfoText: "Cloud coverage and humidity"},
                     ]
 
                     Item {
